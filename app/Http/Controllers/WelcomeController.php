@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carousel;
 use App\Models\Service;
 use App\Models\Portfolio;
 use Illuminate\Http\Request;
@@ -10,55 +11,28 @@ class WelcomeController extends Controller
 {
     public function index()
     {
+        $carousels = Carousel::where('active', true)
+            ->orderBy('order')
+            ->get();
+        
         $featuredServices = Service::where('active', true)
             ->orderBy('created_at', 'desc')
             ->take(6)
             ->get();
         
-        $featuredPortfolio = Portfolio::where('featured', true)
-            ->orderBy('created_at', 'desc')
+        $portfolioItems = Portfolio::orderBy('created_at', 'desc')
             ->take(6)
             ->get();
         
         $testimonials = [
-            [
-                'name' => 'Marie Kouadio',
-                'company' => 'Boutique Élégance',
-                'rating' => 5,
-                'text' => 'BUSIDIG a transformé l\'image de ma boutique! Les packagings sont magnifiques et nos clients adorent. Service professionnel et livraison rapide. Je recommande vivement!'
-            ],
-            [
-                'name' => 'Jean-Baptiste Mensah',
-                'company' => 'Startup TechHub',
-                'rating' => 5,
-                'text' => 'Excellent travail sur notre branding complet! Logo, cartes de visite, tout était parfait. L\'équipe a compris notre vision et l\'a dépassée. Un grand merci!'
-            ],
-            [
-                'name' => 'Aïcha Diallo',
-                'company' => 'Bio & Nature',
-                'rating' => 5,
-                'text' => 'Nous cherchions des solutions écologiques pour nos emballages. BUSIDIG nous a proposé des options durables et esthétiques. Exactement ce qu\'il nous fallait!'
-            ],
-            [
-                'name' => 'Patrick Ouattara',
-                'company' => 'Restaurant Le Délice',
-                'rating' => 5,
-                'text' => 'Nos nouveaux menus et packagings pour la livraison sont superbes! Les clients complimentent toujours la présentation. Service client irréprochable!'
-            ],
-            [
-                'name' => 'Fatou Bamba',
-                'company' => 'Cosmétiques Afya',
-                'rating' => 5,
-                'text' => 'BUSIDIG a créé un packaging haut de gamme pour notre ligne de cosmétiques. Les boîtes sont élégantes et reflètent parfaitement notre marque premium. Bravo!'
-            ],
-            [
-                'name' => 'Kofi Assem',
-                'company' => 'Café des Arts',
-                'rating' => 5,
-                'text' => 'Processus simple et rapide! En quelques jours, nous avions nos nouveaux gobelets personnalisés et sacs en papier. Qualité au rendez-vous, prix compétitifs!'
-            ]
+            ['name' => 'Kofi Mensah', 'company' => 'AfriTech Solutions', 'text' => 'BUSIDIG a transformé notre image de marque. Un service impeccable, des designs exceptionnels et un accompagnement professionnel du début à la fin!', 'rating' => 5],
+            ['name' => 'Amina Diallo', 'company' => 'BioNature Cosmetics', 'text' => 'Le packaging créé par BUSIDIG a considérablement augmenté nos ventes. Nos produits se démarquent vraiment en rayon maintenant!', 'rating' => 5],
+            ['name' => 'Jean-Baptiste Kouassi', 'company' => 'TastyBites Restaurant', 'text' => 'Une équipe à l\'écoute et créative. Ils ont parfaitement compris notre vision et l\'ont transformée en une identité visuelle moderne et attrayante.', 'rating' => 5],
+            ['name' => 'Fatou Ndiaye', 'company' => 'EcoFashion Boutique', 'text' => 'Rapides, professionnels et avec des prix très compétitifs. Je recommande vivement leurs services à tous les entrepreneurs!', 'rating' => 5],
+            ['name' => 'David Asante', 'company' => 'AgriPro Exports', 'text' => 'Le meilleur investissement que nous ayons fait pour notre entreprise. Le nouveau packaging a doublé notre reconnaissance de marque!', 'rating' => 5],
+            ['name' => 'Marie Koffi', 'company' => 'UrbanStyle Fashion', 'text' => 'Des créations uniques et un service client exceptionnel. BUSIDIG comprend vraiment les besoins des entreprises africaines!', 'rating' => 5],
         ];
         
-        return view('welcome', compact('featuredServices', 'featuredPortfolio', 'testimonials'));
+        return view('welcome', compact('carousels', 'featuredServices', 'portfolioItems', 'testimonials'));
     }
 }

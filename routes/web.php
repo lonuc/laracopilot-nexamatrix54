@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\PortfolioController;
+use App\Http\Controllers\Admin\CarouselController;
 use App\Http\Controllers\Client\ClientAuthController;
 use App\Http\Controllers\Client\ClientDashboardController;
 use App\Http\Controllers\Client\ClientOrderController;
@@ -97,3 +98,11 @@ Route::post('/admin/portfolio', [PortfolioController::class, 'store'])->name('ad
 Route::get('/admin/portfolio/{id}/edit', [PortfolioController::class, 'edit'])->name('admin.portfolio.edit');
 Route::put('/admin/portfolio/{id}', [PortfolioController::class, 'update'])->name('admin.portfolio.update');
 Route::delete('/admin/portfolio/{id}', [PortfolioController::class, 'destroy'])->name('admin.portfolio.destroy');
+
+// Admin Carousel
+Route::get('/admin/carousel', [CarouselController::class, 'index'])->name('admin.carousel.index');
+Route::get('/admin/carousel/create', [CarouselController::class, 'create'])->name('admin.carousel.create');
+Route::post('/admin/carousel', [CarouselController::class, 'store'])->name('admin.carousel.store');
+Route::get('/admin/carousel/{id}/edit', [CarouselController::class, 'edit'])->name('admin.carousel.edit');
+Route::put('/admin/carousel/{id}', [CarouselController::class, 'update'])->name('admin.carousel.update');
+Route::delete('/admin/carousel/{id}', [CarouselController::class, 'destroy'])->name('admin.carousel.destroy');

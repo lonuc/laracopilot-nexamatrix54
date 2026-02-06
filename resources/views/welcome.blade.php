@@ -1,7 +1,51 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Hero Section -->
+<!-- Hero Carousel -->
+@if($carousels->count() > 0)
+<div class="relative overflow-hidden bg-gray-900">
+    <div class="carousel-container relative" style="height: 600px;">
+        @foreach($carousels as $index => $carousel)
+        <div class="carousel-slide absolute inset-0 transition-opacity duration-1000 {{ $index === 0 ? 'opacity-100' : 'opacity-0' }}" data-slide="{{ $index }}">
+            <img src="{{ asset('storage/' . $carousel->image_path) }}" alt="{{ $carousel->title }}" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent">
+                <div class="max-w-7xl mx-auto px-4 h-full flex items-center">
+                    <div class="text-white max-w-2xl animate-fade-in-up">
+                        <h1 class="text-5xl md:text-6xl font-extrabold mb-4">{{ $carousel->title }}</h1>
+                        @if($carousel->description)
+                            <p class="text-xl mb-6">{{ $carousel->description }}</p>
+                        @endif
+                        @if($carousel->button_text && $carousel->button_link)
+                            <a href="{{ $carousel->button_link }}" class="inline-block bg-busidig-orange hover:bg-opacity-90 text-white px-8 py-4 rounded-full text-lg font-bold shadow-2xl transform hover:scale-105 transition-all duration-300">
+                                {{ $carousel->button_text }}
+                            </a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+    
+    <!-- Carousel Controls -->
+    @if($carousels->count() > 1)
+    <button onclick="previousSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 text-white p-3 rounded-full transition-all z-10">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+    </button>
+    <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 text-white p-3 rounded-full transition-all z-10">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+    </button>
+    
+    <!-- Indicators -->
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+        @foreach($carousels as $index => $carousel)
+        <button onclick="goToSlide({{ $index }})" class="carousel-indicator w-3 h-3 rounded-full transition-all {{ $index === 0 ? 'bg-white w-8' : 'bg-white/50' }}" data-indicator="{{ $index }}"></button>
+        @endforeach
+    </div>
+    @endif
+</div>
+@else
+<!-- Default Hero if no carousel -->
 <div class="bg-gradient-to-br from-busidig-blue via-busidig-light-blue to-busidig-orange text-white relative overflow-hidden">
     <div class="absolute inset-0 opacity-10">
         <div class="absolute transform rotate-45 -top-20 -right-20 w-96 h-96 bg-white rounded-full"></div>
@@ -73,6 +117,43 @@
         </div>
     </div>
 </div>
+@endif
+
+<!-- Stats Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center animate-fade-in-up">
+                <div class="bg-gradient-to-br from-blue-500 to-blue-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
+                </div>
+                <div class="text-4xl font-extrabold text-gray-800 mb-2">500+</div>
+                <div class="text-gray-600 font-semibold">Clients Satisfaits</div>
+            </div>
+            <div class="text-center animate-fade-in-up animation-delay-200">
+                <div class="bg-gradient-to-br from-green-500 to-green-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+                </div>
+                <div class="text-4xl font-extrabold text-gray-800 mb-2">1000+</div>
+                <div class="text-gray-600 font-semibold">Projets Complétés</div>
+            </div>
+            <div class="text-center animate-fade-in-up animation-delay-400">
+                <div class="bg-gradient-to-br from-orange-500 to-red-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                </div>
+                <div class="text-4xl font-extrabold text-gray-800 mb-2">5/5</div>
+                <div class="text-gray-600 font-semibold">Note Moyenne</div>
+            </div>
+            <div class="text-center animate-fade-in-up">
+                <div class="bg-gradient-to-br from-purple-500 to-purple-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+                </div>
+                <div class="text-4xl font-extrabold text-gray-800 mb-2">24/7</div>
+                <div class="text-gray-600 font-semibold">Support Client</div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Features Section -->
 <section class="py-20 bg-gray-50">
@@ -112,6 +193,56 @@
         </div>
     </div>
 </section>
+
+<!-- Featured Services -->
+@if($featuredServices->count() > 0)
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">Nos Services Populaires</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Découvrez nos services les plus demandés</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            @foreach($featuredServices as $service)
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                @if($service->image_path)
+                    <img src="{{ asset('storage/' . $service->image_path) }}" alt="{{ $service->name }}" class="w-full h-48 object-cover">
+                @else
+                    <div class="h-48 bg-gradient-to-br {{ $service->category === 'packaging' ? 'from-blue-500 to-blue-600' : 'from-purple-500 to-purple-600' }} flex items-center justify-center">
+                        <svg class="w-24 h-24 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
+                        </svg>
+                    </div>
+                @endif
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-xl font-bold text-gray-800">{{ $service->name }}</h3>
+                        <span class="px-3 py-1 rounded-full text-xs font-bold {{ $service->category === 'packaging' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800' }}">
+                            {{ ucfirst($service->category) }}
+                        </span>
+                    </div>
+                    <p class="text-gray-600 mb-4 leading-relaxed">{{ Str::limit($service->description, 120) }}</p>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-2xl font-extrabold text-busidig-orange">{{ number_format($service->base_price, 0, ',', ' ') }}</span>
+                            <span class="text-sm text-gray-600"> FCFA</span>
+                        </div>
+                        <a href="{{ route('services.show', $service->id) }}" class="bg-busidig-orange text-white px-6 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition-all">
+                            Commander
+                        </a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+        <div class="text-center mt-12">
+            <a href="{{ route('services') }}" class="inline-block bg-busidig-blue text-white px-10 py-4 rounded-full text-lg font-bold hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+                Voir tous nos services
+            </a>
+        </div>
+    </div>
+</section>
+@endif
 
 <!-- Testimonials Section -->
 <section class="py-20 bg-gradient-to-br from-gray-50 to-gray-100">
@@ -177,4 +308,47 @@
         </div>
     </div>
 </div>
+
+<script>
+let currentSlide = 0;
+const slides = document.querySelectorAll('.carousel-slide');
+const indicators = document.querySelectorAll('.carousel-indicator');
+const totalSlides = slides.length;
+
+function showSlide(index) {
+    slides.forEach((slide, i) => {
+        slide.style.opacity = i === index ? '1' : '0';
+    });
+    
+    indicators.forEach((indicator, i) => {
+        if (i === index) {
+            indicator.classList.add('bg-white', 'w-8');
+            indicator.classList.remove('bg-white/50');
+        } else {
+            indicator.classList.remove('bg-white', 'w-8');
+            indicator.classList.add('bg-white/50');
+        }
+    });
+}
+
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    showSlide(currentSlide);
+}
+
+function previousSlide() {
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    showSlide(currentSlide);
+}
+
+function goToSlide(index) {
+    currentSlide = index;
+    showSlide(currentSlide);
+}
+
+// Auto-advance carousel every 5 seconds
+if (totalSlides > 1) {
+    setInterval(nextSlide, 5000);
+}
+</script>
 @endsection
