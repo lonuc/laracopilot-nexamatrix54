@@ -11,16 +11,22 @@ class Order extends Model
     
     protected $fillable = [
         'client_id',
+        'customer_name',
+        'customer_email',
+        'customer_phone',
         'service_id',
         'quantity',
+        'format',
         'specifications',
+        'uploaded_files',
         'total_price',
         'status',
         'delivery_date'
     ];
     
     protected $casts = [
-        'total_price' => 'decimal:2',
+        'total_price' => 'decimal:0',
+        'uploaded_files' => 'array',
         'delivery_date' => 'date'
     ];
     

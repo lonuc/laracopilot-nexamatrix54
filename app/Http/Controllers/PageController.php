@@ -2,10 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Service;
+use App\Models\Portfolio;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
+    public function services()
+    {
+        $services = Service::where('active', true)
+            ->orderBy('created_at', 'desc')
+            ->paginate(12);
+        
+        return view('pages.services', compact('services'));
+    }
+    
+    public function portfolio()
+    {
+        $portfolioItems = Portfolio::orderBy('created_at', 'desc')
+            ->paginate(12);
+        
+        return view('pages.portfolio', compact('portfolioItems'));
+    }
+    
+    public function contact()
+    {
+        return view('pages.contact');
+    }
+    
     public function about()
     {
         return view('pages.about');
@@ -23,10 +47,6 @@ class PageController extends Controller
     
     public function orderNow()
     {
-        $whatsappNumber = '22892943617';
-        $message = urlencode('Bonjour BUSIDIG! Je souhaite passer une commande.');
-        $whatsappUrl = "https://wa.me/{$whatsappNumber}?text={$message}";
-        
-        return redirect()->away($whatsappUrl);
+        return redirect()->route('services');
     }
 }
