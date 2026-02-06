@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BUSIDIG - Connexion Admin</title>
+    <title>Connexion Admin - BUSIDIG</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -22,89 +22,136 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
         body {
             font-family: 'Poppins', sans-serif;
+        }
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(135deg, #004E89 0%, #1A659E 50%, #FF6B35 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+        #loading-screen.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(255, 255, 255, 0.2);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl shadow-2xl overflow-hidden max-w-4xl w-full flex">
-        <div class="w-full md:w-1/2 p-12">
-            <div class="mb-8">
-                <h1 class="text-4xl font-extrabold mb-2"><span class="text-busidig-blue">BUSI</span><span class="text-busidig-orange">DIG</span></h1>
-                <p class="text-gray-600 font-medium">Espace Administration</p>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100">
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader mb-8"></div>
+        <h2 class="text-white text-2xl font-bold mb-2">Connexion en cours...</h2>
+        <p class="text-white/80 text-lg pulse">Veuillez patienter</p>
+    </div>
+
+    <div class="min-h-screen flex items-center justify-center px-4 py-12">
+        <div class="max-w-md w-full">
+            <!-- Logo -->
+            <div class="text-center mb-8">
+                <h1 class="text-5xl font-extrabold">
+                    <span class="text-busidig-blue">BUSI</span><span class="text-busidig-orange">DIG</span>
+                </h1>
+                <p class="text-gray-600 mt-2 text-lg font-semibold">Administration</p>
             </div>
 
-            @if ($errors->any())
-                <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-lg">
-                    <p class="font-semibold">{{ $errors->first() }}</p>
-                </div>
-            @endif
+            <!-- Login Card -->
+            <div class="bg-white rounded-2xl shadow-2xl p-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Connexion Admin</h2>
+                
+                @if($errors->any())
+                    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded">
+                        <p class="font-bold">Erreur</p>
+                        <p>{{ $errors->first() }}</p>
+                    </div>
+                @endif
 
-            <form action="{{ route('admin.login') }}" method="POST" class="space-y-6">
-                @csrf
-                <div>
-                    <label for="email" class="block text-sm font-bold text-gray-700 mb-2">Email</label>
-                    <input type="email" name="email" id="email" value="{{ old('email') }}" required
-                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-busidig-orange focus:ring-2 focus:ring-busidig-orange focus:outline-none transition-all duration-300">
-                </div>
-                <div>
-                    <label for="password" class="block text-sm font-bold text-gray-700 mb-2">Mot de passe</label>
-                    <input type="password" name="password" id="password" required
-                        class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-busidig-orange focus:ring-2 focus:ring-busidig-orange focus:outline-none transition-all duration-300">
-                </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-busidig-orange to-red-500 text-white py-3.5 rounded-xl font-bold hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-                    Se connecter
-                </button>
-            </form>
+                <form action="{{ route('admin.login') }}" method="POST" id="admin-login-form">
+                    @csrf
+                    <div class="mb-6">
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Email *</label>
+                        <input type="email" name="email" required
+                            class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-busidig-orange focus:ring-2 focus:ring-busidig-orange focus:outline-none transition-all duration-300"
+                            placeholder="admin@busidig.com">
+                    </div>
 
-            <div class="mt-8 p-6 bg-gradient-to-br from-busidig-blue to-busidig-light-blue rounded-2xl">
-                <p class="text-white font-bold mb-3 flex items-center">
+                    <div class="mb-6">
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Mot de passe *</label>
+                        <input type="password" name="password" required
+                            class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-busidig-orange focus:ring-2 focus:ring-busidig-orange focus:outline-none transition-all duration-300"
+                            placeholder="••••••••">
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-gradient-to-r from-busidig-blue to-busidig-light-blue text-white py-4 rounded-xl font-bold text-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+                        Se connecter
+                    </button>
+                </form>
+
+                <!-- Test Credentials -->
+                <div class="mt-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border-2 border-blue-200">
+                    <h3 class="font-bold text-gray-800 mb-3 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                        </svg>
+                        Identifiants de test
+                    </h3>
+                    <div class="space-y-2 text-sm">
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="text-gray-600 font-semibold">Email:</p>
+                            <p class="text-gray-800 font-mono">admin@busidig.com</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="text-gray-600 font-semibold">Mot de passe:</p>
+                            <p class="text-gray-800 font-mono">admin123</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back to Home -->
+            <div class="text-center mt-6">
+                <a href="{{ route('welcome') }}" class="text-gray-600 hover:text-busidig-orange font-semibold transition-all inline-flex items-center">
                     <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
                     </svg>
-                    Identifiants de test
-                </p>
-                <div class="space-y-2 text-sm text-gray-100">
-                    <p><span class="font-semibold">Admin:</span> admin@busidig.com / admin123</p>
-                    <p><span class="font-semibold">Manager:</span> manager@busidig.com / manager123</p>
-                    <p><span class="font-semibold">Superviseur:</span> supervisor@busidig.com / supervisor123</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="hidden md:block w-1/2 bg-gradient-to-br from-busidig-blue via-busidig-light-blue to-busidig-orange p-12 text-white flex flex-col justify-center">
-            <h2 class="text-4xl font-extrabold mb-6">Bienvenue!</h2>
-            <p class="text-lg mb-8 leading-relaxed">Gérez vos services, commandes, clients et portfolio en toute simplicité avec notre plateforme moderne et intuitive.</p>
-            <div class="space-y-4">
-                <div class="flex items-start">
-                    <svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                    </svg>
-                    <div>
-                        <h3 class="font-bold">Tableau de bord intuitif</h3>
-                        <p class="text-sm text-gray-200">Visualisez toutes vos statistiques en temps réel</p>
-                    </div>
-                </div>
-                <div class="flex items-start">
-                    <svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                    </svg>
-                    <div>
-                        <h3 class="font-bold">Gestion complète</h3>
-                        <p class="text-sm text-gray-200">Services, commandes, clients et portfolio</p>
-                    </div>
-                </div>
-                <div class="flex items-start">
-                    <svg class="w-6 h-6 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                    </svg>
-                    <div>
-                        <h3 class="font-bold">Interface moderne</h3>
-                        <p class="text-sm text-gray-200">Design élégant et responsive</p>
-                    </div>
-                </div>
+                    Retour à l'accueil
+                </a>
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('admin-login-form').addEventListener('submit', function(e) {
+            // Show loading screen
+            document.getElementById('loading-screen').classList.add('active');
+        });
+    </script>
 </body>
 </html>

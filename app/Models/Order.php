@@ -17,6 +17,9 @@ class Order extends Model
         'service_id',
         'quantity',
         'format',
+        'dimensions',
+        'carton_type',
+        'finishes',
         'specifications',
         'uploaded_files',
         'total_price',
@@ -27,6 +30,7 @@ class Order extends Model
     protected $casts = [
         'total_price' => 'decimal:0',
         'uploaded_files' => 'array',
+        'finishes' => 'array',
         'delivery_date' => 'date'
     ];
     

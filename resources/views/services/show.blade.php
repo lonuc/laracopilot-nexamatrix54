@@ -3,26 +3,26 @@
 @section('title', $service->name)
 
 @section('content')
-<div class="bg-gradient-to-br from-busidig-blue via-busidig-light-blue to-busidig-orange py-12">
+<div class="bg-gradient-to-br from-busidig-blue via-busidig-light-blue to-busidig-orange py-12 animate-gradient">
     <div class="max-w-7xl mx-auto px-4">
-        <a href="{{ route('services') }}" class="inline-flex items-center text-white hover:text-gray-200 font-semibold mb-6 transition-all">
+        <a href="{{ route('services') }}" class="inline-flex items-center text-white hover:text-gray-200 font-semibold mb-6 transition-all transform hover:translate-x-2">
             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
             </svg>
             Retour aux services
         </a>
-        <h1 class="text-5xl font-extrabold text-white mb-4">{{ $service->name }}</h1>
-        <p class="text-xl text-gray-100">{{ $service->description }}</p>
+        <h1 class="text-5xl font-extrabold text-white mb-4 animate-fade-in-up">{{ $service->name }}</h1>
+        <p class="text-xl text-gray-100 animate-fade-in-up animation-delay-200">{{ $service->description }}</p>
     </div>
 </div>
 
 <div class="max-w-7xl mx-auto px-4 py-16">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <!-- Service Details -->
-        <div>
-            <div class="bg-gradient-to-br {{ $service->category === 'packaging' ? 'from-blue-500 to-blue-600' : 'from-purple-500 to-purple-600' }} rounded-3xl p-12 text-white shadow-2xl mb-8">
+        <div class="animate-fade-in-left">
+            <div class="bg-gradient-to-br {{ $service->category === 'packaging' ? 'from-blue-500 to-blue-600' : 'from-purple-500 to-purple-600' }} rounded-3xl p-12 text-white shadow-2xl mb-8 transform hover:scale-105 transition-all duration-300">
                 <div class="flex items-center justify-center mb-6">
-                    <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="w-32 h-32 animate-bounce-slow" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
                     </svg>
                 </div>
@@ -35,7 +35,7 @@
             <div class="bg-gray-50 rounded-2xl p-8 shadow-lg">
                 <h3 class="text-2xl font-bold text-gray-800 mb-6">Détails du service</h3>
                 <div class="space-y-4">
-                    <div class="flex items-start">
+                    <div class="flex items-start transform hover:translate-x-2 transition-all">
                         <svg class="w-6 h-6 text-green-600 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                         </svg>
@@ -44,7 +44,7 @@
                             <p class="text-gray-600">Créations uniques et personnalisées selon vos besoins</p>
                         </div>
                     </div>
-                    <div class="flex items-start">
+                    <div class="flex items-start transform hover:translate-x-2 transition-all">
                         <svg class="w-6 h-6 text-green-600 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                         </svg>
@@ -53,7 +53,7 @@
                             <p class="text-gray-600">Respect des délais garantis</p>
                         </div>
                     </div>
-                    <div class="flex items-start">
+                    <div class="flex items-start transform hover:translate-x-2 transition-all">
                         <svg class="w-6 h-6 text-green-600 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                         </svg>
@@ -62,7 +62,7 @@
                             <p class="text-gray-600">Matériaux de haute qualité et finitions soignées</p>
                         </div>
                     </div>
-                    <div class="flex items-start">
+                    <div class="flex items-start transform hover:translate-x-2 transition-all">
                         <svg class="w-6 h-6 text-green-600 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                         </svg>
@@ -76,47 +76,98 @@
         </div>
 
         <!-- Order Form -->
-        <div class="bg-white rounded-2xl shadow-2xl p-8">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 animate-fade-in-right">
             <h2 class="text-3xl font-bold text-gray-800 mb-6">Commander ce service</h2>
             <form action="{{ route('services.order', $service->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                 @csrf
-                <div>
+                <div class="transform hover:scale-105 transition-all">
                     <label class="block text-sm font-bold text-gray-700 mb-2">Votre nom complet *</label>
                     <input type="text" name="name" required
                         class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-busidig-orange focus:ring-2 focus:ring-busidig-orange focus:outline-none transition-all duration-300">
                 </div>
 
-                <div>
+                <div class="transform hover:scale-105 transition-all">
                     <label class="block text-sm font-bold text-gray-700 mb-2">Email *</label>
                     <input type="email" name="email" required
                         class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-busidig-orange focus:ring-2 focus:ring-busidig-orange focus:outline-none transition-all duration-300">
                 </div>
 
-                <div>
+                <div class="transform hover:scale-105 transition-all">
                     <label class="block text-sm font-bold text-gray-700 mb-2">Téléphone (WhatsApp) *</label>
                     <input type="text" name="phone" required placeholder="Ex: +228 92 94 36 17"
                         class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-busidig-orange focus:ring-2 focus:ring-busidig-orange focus:outline-none transition-all duration-300">
                 </div>
 
-                <div>
+                <div class="transform hover:scale-105 transition-all">
                     <label class="block text-sm font-bold text-gray-700 mb-2">Quantité *</label>
                     <input type="number" name="quantity" min="1" value="100" required
                         class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-busidig-orange focus:ring-2 focus:ring-busidig-orange focus:outline-none transition-all duration-300"
                         onchange="calculateTotal()" id="quantity">
                 </div>
 
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Format / Dimensions *</label>
-                    <input type="text" name="format" required placeholder="Ex: 10x15cm, A4, 500ml, etc."
+                <div class="transform hover:scale-105 transition-all">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Dimensions *</label>
+                    <input type="text" name="dimensions" required placeholder="Ex: 30cm x 20cm x 10cm"
+                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-busidig-orange focus:ring-2 focus:ring-busidig-orange focus:outline-none transition-all duration-300">
+                </div>
+
+                <div class="transform hover:scale-105 transition-all">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Type de carton *</label>
+                    <select name="carton_type" required
+                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-busidig-orange focus:ring-2 focus:ring-busidig-orange focus:outline-none transition-all duration-300">
+                        <option value="">Sélectionner un type</option>
+                        <option value="Carton ondulé simple cannelure">Carton ondulé simple cannelure</option>
+                        <option value="Carton ondulé double cannelure">Carton ondulé double cannelure</option>
+                        <option value="Carton ondulé triple cannelure">Carton ondulé triple cannelure</option>
+                        <option value="Carton compact">Carton compact</option>
+                        <option value="Carton duplex">Carton duplex</option>
+                        <option value="Carton kraft">Carton kraft</option>
+                        <option value="Carton contrecollé">Carton contrecollé</option>
+                    </select>
+                </div>
+
+                <div class="transform hover:scale-105 transition-all">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Finitions *</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center p-3 border-2 border-gray-300 rounded-xl hover:border-busidig-orange transition-all cursor-pointer">
+                            <input type="checkbox" name="finishes[]" value="Mat" class="mr-3 w-5 h-5 text-busidig-orange">
+                            <span class="font-semibold">Mat</span>
+                        </label>
+                        <label class="flex items-center p-3 border-2 border-gray-300 rounded-xl hover:border-busidig-orange transition-all cursor-pointer">
+                            <input type="checkbox" name="finishes[]" value="Brillant" class="mr-3 w-5 h-5 text-busidig-orange">
+                            <span class="font-semibold">Brillant</span>
+                        </label>
+                        <label class="flex items-center p-3 border-2 border-gray-300 rounded-xl hover:border-busidig-orange transition-all cursor-pointer">
+                            <input type="checkbox" name="finishes[]" value="Embossage" class="mr-3 w-5 h-5 text-busidig-orange">
+                            <span class="font-semibold">Embossage (relief)</span>
+                        </label>
+                        <label class="flex items-center p-3 border-2 border-gray-300 rounded-xl hover:border-busidig-orange transition-all cursor-pointer">
+                            <input type="checkbox" name="finishes[]" value="Vernis UV" class="mr-3 w-5 h-5 text-busidig-orange">
+                            <span class="font-semibold">Vernis UV</span>
+                        </label>
+                        <label class="flex items-center p-3 border-2 border-gray-300 rounded-xl hover:border-busidig-orange transition-all cursor-pointer">
+                            <input type="checkbox" name="finishes[]" value="Pelliculage" class="mr-3 w-5 h-5 text-busidig-orange">
+                            <span class="font-semibold">Pelliculage</span>
+                        </label>
+                        <label class="flex items-center p-3 border-2 border-gray-300 rounded-xl hover:border-busidig-orange transition-all cursor-pointer">
+                            <input type="checkbox" name="finishes[]" value="Dorure à chaud" class="mr-3 w-5 h-5 text-busidig-orange">
+                            <span class="font-semibold">Dorure à chaud</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="transform hover:scale-105 transition-all">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Format / Type *</label>
+                    <input type="text" name="format" required placeholder="Ex: Boîte, Pochette, Étiquette, etc."
                         class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-busidig-orange focus:ring-2 focus:ring-busidig-orange focus:outline-none transition-all duration-300">
                 </div>
 
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">Importer vos fichiers (Logo, maquettes, etc.)</label>
-                    <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-busidig-orange transition-all">
+                    <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-busidig-orange transition-all transform hover:scale-105">
                         <input type="file" name="files[]" multiple accept=".jpg,.jpeg,.png,.pdf,.ai,.psd,.svg,.eps" class="hidden" id="file-upload">
                         <label for="file-upload" class="cursor-pointer">
-                            <svg class="w-16 h-16 mx-auto text-gray-400 mb-3" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-16 h-16 mx-auto text-gray-400 mb-3 animate-bounce-slow" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z"/>
                             </svg>
                             <p class="text-gray-600 font-semibold mb-1">Cliquez pour importer vos fichiers</p>
@@ -126,20 +177,20 @@
                     <div id="file-list" class="mt-3 space-y-2"></div>
                 </div>
 
-                <div>
+                <div class="transform hover:scale-105 transition-all">
                     <label class="block text-sm font-bold text-gray-700 mb-2">Spécifications / Instructions</label>
                     <textarea name="specifications" rows="4" placeholder="Décrivez vos besoins: couleurs, textes à inclure, style souhaité, etc."
                         class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-busidig-orange focus:ring-2 focus:ring-busidig-orange focus:outline-none transition-all duration-300"></textarea>
                 </div>
 
-                <div class="bg-gray-50 rounded-xl p-6">
+                <div class="bg-gray-50 rounded-xl p-6 transform hover:scale-105 transition-all">
                     <div class="flex justify-between items-center mb-2">
                         <span class="text-lg font-semibold text-gray-700">Prix unitaire:</span>
                         <span class="text-lg font-bold text-gray-800">{{ number_format($service->base_price, 0, ',', ' ') }} FCFA</span>
                     </div>
                     <div class="flex justify-between items-center border-t pt-2">
                         <span class="text-2xl font-bold text-gray-800">Total estimé:</span>
-                        <span class="text-3xl font-extrabold text-busidig-orange" id="total-price">{{ number_format($service->base_price * 100, 0, ',', ' ') }} FCFA</span>
+                        <span class="text-3xl font-extrabold text-busidig-orange animate-pulse" id="total-price">{{ number_format($service->base_price * 100, 0, ',', ' ') }} FCFA</span>
                     </div>
                 </div>
 
@@ -171,7 +222,7 @@ document.getElementById('file-upload').addEventListener('change', function(e) {
         const fileSize = (file.size / 1024).toFixed(2);
         
         const fileItem = document.createElement('div');
-        fileItem.className = 'flex items-center justify-between bg-gray-50 p-3 rounded-lg';
+        fileItem.className = 'flex items-center justify-between bg-gray-50 p-3 rounded-lg transform hover:scale-105 transition-all';
         fileItem.innerHTML = `
             <div class="flex items-center">
                 <svg class="w-6 h-6 text-busidig-orange mr-3" fill="currentColor" viewBox="0 0 20 20">

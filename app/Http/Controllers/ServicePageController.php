@@ -23,6 +23,9 @@ class ServicePageController extends Controller
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
             'quantity' => 'required|integer|min:1',
+            'dimensions' => 'required|string|max:255',
+            'carton_type' => 'required|string|max:255',
+            'finishes' => 'nullable|array',
             'format' => 'required|string|max:255',
             'specifications' => 'nullable|string|max:2000',
             'files.*' => 'nullable|file|max:10240|mimes:jpg,jpeg,png,pdf,ai,psd,svg,eps'
@@ -50,8 +53,16 @@ class ServicePageController extends Controller
         $message .= "👤 Client: {$validated['name']}\n";
         $message .= "📧 Email: {$validated['email']}\n";
         $message .= "📱 Téléphone: {$validated['phone']}\n\n";
-        $message .= "📦 Quantité: {$validated['quantity']}\n";
-        $message .= "📐 Format: {$validated['format']}\n";
+        $message .= "📦 DÉTAILS DE LA COMMANDE:\n";
+        $message .= "• Quantité: {$validated['quantity']}\n";
+        $message .= "• Dimensions: {$validated['dimensions']}\n";
+        $message .= "• Type de carton: {$validated['carton_type']}\n";
+        
+        if (!empty($validated['finishes'])) {
+            $message .= "• Finitions: " . implode(', ', $validated['finishes']) . "\n";
+        }
+        
+        $message .= "• Format: {$validated['format']}\n";
         $message .= "💰 Prix total: " . number_format($totalPrice, 0, ',', ' ') . " FCFA\n\n";
         
         if (!empty($validated['specifications'])) {
@@ -77,6 +88,9 @@ class ServicePageController extends Controller
             'customer_email' => $validated['email'],
             'customer_phone' => $validated['phone'],
             'quantity' => $validated['quantity'],
+            'dimensions' => $validated['dimensions'],
+            'carton_type' => $validated['carton_type'],
+            'finishes' => $validated['finishes'] ?? [],
             'format' => $validated['format'],
             'specifications' => $validated['specifications'] ?? null,
             'total_price' => $totalPrice,
