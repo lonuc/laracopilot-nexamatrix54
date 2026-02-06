@@ -14,14 +14,20 @@ use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ServicePageController;
 
 // Public routes
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+Route::get('/services', [PageController::class, 'services'])->name('services');
+Route::get('/services/{id}', [ServicePageController::class, 'show'])->name('services.show');
+Route::get('/portfolio', [PageController::class, 'portfolio'])->name('portfolio');
+Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/privacy-policy', [PageController::class, 'privacyPolicy'])->name('privacy.policy');
 Route::get('/terms-of-service', [PageController::class, 'termsOfService'])->name('terms.service');
 Route::get('/order-now', [PageController::class, 'orderNow'])->name('order.now');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::post('/services/{id}/order', [ServicePageController::class, 'submitOrder'])->name('services.order');
 
 // Client Authentication
 Route::get('/client/login', [ClientAuthController::class, 'showLogin'])->name('client.login');
@@ -73,6 +79,7 @@ Route::post('/admin/orders/{id}/accept', [OrderController::class, 'accept'])->na
 Route::post('/admin/orders/{id}/cancel', [OrderController::class, 'cancel'])->name('admin.orders.cancel');
 Route::post('/admin/orders/{id}/deliver', [OrderController::class, 'deliver'])->name('admin.orders.deliver');
 Route::get('/admin/orders/{id}/invoice', [OrderController::class, 'generateInvoice'])->name('admin.orders.invoice');
+Route::get('/admin/orders/{id}/download-files', [OrderController::class, 'downloadFiles'])->name('admin.orders.download-files');
 
 // Admin Clients
 Route::get('/admin/clients', [ClientController::class, 'index'])->name('admin.clients.index');
