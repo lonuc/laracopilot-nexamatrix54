@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Client;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -154,5 +155,19 @@ class OrderController extends Controller
         
         return redirect()->route('admin.orders.index')
             ->with('success', 'Commande marquée comme livrée! Le chiffre d\'affaires a été mis à jour.');
+    }
+    
+    public function generateInvoice($id)
+    {
+        if (!session('admin_logged_in')) {
+            return redirect()->route('admin.login');
+        }
+        
+        $order = Order::with('client', 'service')->findOrFail($id);
+        
+        $pdf = Pdf::loadView('admin.orders.invoice', compact('order'))
+            ->setPaper([0, 0, 226.77, 841.89], 'portrait'); // 80mm width, A4 height
+        
+        return $pdf->download('bon-commande-' . $order->id . '.pdf');
     }
 }

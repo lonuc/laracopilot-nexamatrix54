@@ -10,8 +10,10 @@ use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Client\ClientAuthController;
 use App\Http\Controllers\Client\ClientDashboardController;
 use App\Http\Controllers\Client\ClientOrderController;
+use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ContactController;
 
 // Public routes
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
@@ -19,6 +21,7 @@ Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/privacy-policy', [PageController::class, 'privacyPolicy'])->name('privacy.policy');
 Route::get('/terms-of-service', [PageController::class, 'termsOfService'])->name('terms.service');
 Route::get('/order-now', [PageController::class, 'orderNow'])->name('order.now');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // Client Authentication
 Route::get('/client/login', [ClientAuthController::class, 'showLogin'])->name('client.login');
@@ -33,6 +36,14 @@ Route::get('/client/orders', [ClientOrderController::class, 'index'])->name('cli
 Route::get('/client/orders/create', [ClientOrderController::class, 'create'])->name('client.orders.create');
 Route::post('/client/orders', [ClientOrderController::class, 'store'])->name('client.orders.store');
 Route::get('/client/orders/{id}', [ClientOrderController::class, 'show'])->name('client.orders.show');
+
+// Shopping Cart
+Route::get('/client/cart', [CartController::class, 'index'])->name('client.cart.index');
+Route::post('/client/cart/add/{serviceId}', [CartController::class, 'add'])->name('client.cart.add');
+Route::put('/client/cart/update/{serviceId}', [CartController::class, 'update'])->name('client.cart.update');
+Route::delete('/client/cart/remove/{serviceId}', [CartController::class, 'remove'])->name('client.cart.remove');
+Route::post('/client/cart/checkout', [CartController::class, 'checkout'])->name('client.cart.checkout');
+Route::delete('/client/cart/clear', [CartController::class, 'clear'])->name('client.cart.clear');
 
 // Admin Authentication
 Route::get('/admin/login', [AdminAuthController::class, 'showLogin'])->name('admin.login');
@@ -61,6 +72,7 @@ Route::delete('/admin/orders/{id}', [OrderController::class, 'destroy'])->name('
 Route::post('/admin/orders/{id}/accept', [OrderController::class, 'accept'])->name('admin.orders.accept');
 Route::post('/admin/orders/{id}/cancel', [OrderController::class, 'cancel'])->name('admin.orders.cancel');
 Route::post('/admin/orders/{id}/deliver', [OrderController::class, 'deliver'])->name('admin.orders.deliver');
+Route::get('/admin/orders/{id}/invoice', [OrderController::class, 'generateInvoice'])->name('admin.orders.invoice');
 
 // Admin Clients
 Route::get('/admin/clients', [ClientController::class, 'index'])->name('admin.clients.index');
